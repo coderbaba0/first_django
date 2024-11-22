@@ -1,0 +1,43 @@
+<!-- templates/myapp/post_detail.html -->
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ post.title }}</title>
+    <link rel="stylesheet" href="{% static 'myapp/styles.css' %}">
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">
+                <a href="#">My Blog</a>
+            </div>
+            <ul>
+                <li><a href="{% url 'home' %}">Home</a></li>
+                <li><a href="#">About</a></li>
+                <li><a href="#">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section class="post-detail">
+            <h1>{{ post.title }}</h1>
+            <p class="author">By {{ post.author }} on {{ post.created_at }}</p>
+            {% if post.image %}
+                <img src="{{ post.image.url }}" alt="{{ post.title }} image" class="post-image" style="width: 300px; height: 300px;">
+            {% endif %}
+            <div class="content">
+                <p>{{ post.content }}</p>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 My Blog. All Rights Reserved.</p>
+    </footer>
+</body>
+</html>

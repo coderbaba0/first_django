@@ -1,0 +1,51 @@
+<!-- templates/myapp/home.html -->
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog Posts</title>
+    <link rel="stylesheet" href="{% static 'myapp/styles.css' %}">
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">
+                <a href="#">My Blog</a>
+            </div>
+            <ul>
+                <li><a href="#">Home</a></li>
+                <li><a href="#">About</a></li>
+                <li><a href="#">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section class="blog-posts">
+            <h2>Blog Posts</h2>
+            <div class="posts-list">
+                {% for post in blog_posts %}
+                    <div class="post-card">
+                        <h3>{{ post.title }}</h3>
+                        <p class="author">By {{ post.author }} on {{ post.created_at }}</p>
+                        {% if post.image %}
+                        <img src="{{ post.image.url }}" alt="{{ post.title }} image" style="width: 200px; height: 200px;">
+                        {% endif %}
+                        <p>{{ post.content|truncatewords:30 }}</p>
+                        <a href="{% url 'post_detail' post.id %}" class="read-more">Read more...</a>
+                    </div>
+                {% empty %}
+                    <p>No blog posts yet!</p>
+                {% endfor %}
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 My Blog. All Rights Reserved.</p>
+    </footer>
+</body>
+</html>
